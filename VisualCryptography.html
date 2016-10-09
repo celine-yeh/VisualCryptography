@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--
+ ** 視覺密碼 **
+=================================================================================
+https://catmaoblog.wordpress.com/2016/10/09/%E8%A6%96%E8%A6%BA%E5%AF%86%E7%A2%BC/
+                                                                       By. CatMao
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>VisualCryptography</title>
+    <script>
+        
+        window.onload = function() {
+            
+        };
+        
+        var Go = function()
+        {
+            if(flFile.files && flFile.files[0])
+            {
+                var reader = new FileReader();
+                reader.onload = function(event){
+                    img.src = event.target.result;
+                    DrawPicture();
+                    Password();
+                }
+                reader.readAsDataURL(flFile.files[0]);
+            }
+        }
+        
+        function DrawPicture(){
+            // 將圖片顯示在Canvas上
+            var canvas = document.getElementById("canvas");
+            var cxt    = canvas.getContext("2d");
+            var img    = document.getElementById("img");
+            canvas.height = img.height;
+            canvas.width  = img.width;
+            cxt.drawImage(img, 0, 0);
+        }
+        
+        function Password(){
+            // 利用getImageData得到像素
+            var canvas  = document.getElementById("canvas");
+            var canvas1 = document.getElementById("canvas1");
+            var canvas2 = document.getElementById("canvas2");
+            var canvas3 = document.getElementById("canvas3");
+            canvas1.height = img.height * 2;
+            canvas1.width  = img.width  * 2;
+            canvas2.height = img.height * 2;
+            canvas2.width  = img.width  * 2;
+            canvas3.height = img.height * 2;
+            canvas3.width  = img.width  * 2;
+            var cxt     = canvas.getContext("2d");
+            var cxt1    = canvas1.getContext("2d");
+            var cxt2    = canvas2.getContext("2d");
+            var cxt3    = canvas3.getContext("2d");
+            var imgData = cxt.getImageData(0, 0, canvas.width, canvas.height);
+            var random;
+            var dot;
+            
+            cxt1.fillStyle = "#000000";
+            cxt2.fillStyle = "#000000";
+            cxt3.fillStyle = "#000000";
+            
+            // 隨機選取圖像畫到canvas上，圖像總共六種。
+            // 若是黑色則canvas1和canvas2互補，相加為黑，若為白色則兩張畫一樣的圖像。
+            for (var i=0; i<canvas.height; i++)
+            {
+                for (var j=0; j<canvas.width; j++)
+                {
+                    dot = imgData.data[4*(i*canvas.width+j)];
+                    random = Math.floor(Math.random() * 6); // 取亂數 0~5
+                    if(dot.toString() == "0"){ // R為0則斷定為黑色
+                        switch(random){
+                            case 0:
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt2.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt2.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 2, 2);
+                            break;
+                            case 1:
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt2.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt2.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 2, 2);
+                            break;
+                            case 2:
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt2.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt2.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 2, 2);
+                            break;
+                            case 3:
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt1.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt1.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 2, 2);
+                            break;
+                            case 4:
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt1.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt1.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 2, 2);
+                            break;
+                            case 5:
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt1.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt1.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 2, 2);
+                            break;
+                        }
+                    }
+                    else{
+                        switch(random){
+                            case 0:
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 1, 1);
+                                cxt3.fillRect(j*2+1, i*2+1, 1, 1);
+                            break;
+                            case 1:
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 1, 1);
+                                cxt3.fillRect(j*2+1, i*2  , 1, 1);
+                            break;
+                            case 2:
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 1, 1);
+                                cxt3.fillRect(j*2  , i*2+1, 1, 1);
+                            break;
+                            case 3:
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2  , i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 1, 1);
+                                cxt3.fillRect(j*2  , i*2+1, 1, 1);
+                            break;
+                            case 4:
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2+1, i*2  , 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 1, 1);
+                                cxt3.fillRect(j*2+1, i*2  , 1, 1);
+                            break;
+                            case 5:
+                                cxt2.fillRect(j*2  , i*2  , 1, 1);
+                                cxt2.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt1.fillRect(j*2  , i*2  , 1, 1);
+                                cxt1.fillRect(j*2+1, i*2+1, 1, 1);
+                                cxt3.fillRect(j*2  , i*2  , 1, 1);
+                                cxt3.fillRect(j*2+1, i*2+1, 1, 1);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <center>
+    <div style="width: 100%; height: 5%; position:absolute; top:1%; left: 0%">
+        <input type="file" id="flFile" onchange="Go()"><br>
+    </div>
+    <div style="width: 48%; height: 45%; position:absolute; top:6%; left: 1%">
+        [ 原圖 ]<br><img src="" id="img"><br>
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <div style="width: 48%; height: 45%; position:absolute; top:6%; left: 49%">
+        [ 合成效果 ]<br><canvas id="canvas3"></canvas><br><br>
+    </div>
+    <div style="width: 48%; height: 45%; position:absolute; top:51%; left: 1%">
+        [ 圖片1 ]<br><canvas id="canvas1"></canvas><br>
+    </div>
+    <div style="width: 48%; height: 45%; position:absolute; top:51%; left: 49%">
+        [ 圖片2 ]<br><canvas id="canvas2"></canvas><br>
+    </div>
+    <div style="width: 100%; height: 4%; position:absolute; top:96%; left: 0%">
+        若要放大圖片請用Photoshop Ctrl+T放大，倍數為偶數，內插補點請選擇最接近像素。<br>
+    </div>
+    </center>
+        
+        
+</body>
+</html>
