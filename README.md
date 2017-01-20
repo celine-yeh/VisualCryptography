@@ -1,5 +1,6 @@
 # VisualCryptography
-<h1><img class="alignnone  wp-image-99" src="https://catmaoblog.files.wordpress.com/2016/10/6lqz4de.png" alt="Icon made by Freepik from www.flaticon.com" width="40" height="40" /> <a href="https://catmaoblog.wordpress.com/2016/10/09/visualcryptography/" target="_blank">點我前往</a></h1>
+<h1><img class="alignnone  wp-image-99" src="https://catmaoblog.files.wordpress.com/2016/10/6lqz4de.png" alt="Icon made by Freepik from www.flaticon.com" width="40" height="40" /> <a href="https://catmao1230.github.io/VisualCryptography/" target="_blank">點我前往</a></h1>
+<h1><img class="alignnone  wp-image-99" src="https://catmaoblog.files.wordpress.com/2016/10/6lqz4de.png" alt="Icon made by Freepik from www.flaticon.com" width="40" height="40" /> <a href="https://catmaoblog.wordpress.com/2016/10/09/visualcryptography/" target="_blank">WordPress</a></h1>
 <h1><img class="alignnone  wp-image-41" src="https://catmaoblog.files.wordpress.com/2016/10/3h9rzur.png" alt="3h9rzur" width="40" height="40" /> 視覺密碼介紹</h1>
 將一張影像分解成為好幾份，每一份在外觀上看起來都是亂碼，要將全部重疊在一起，才能看到原本的影像。
 
